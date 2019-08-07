@@ -4,45 +4,22 @@ using EntityFrameworkProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190807150721_Added Major ID FK to student")]
+    partial class AddedMajorIDFKtostudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("EntityFrameworkProject.Models.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Credits");
-
-                    b.Property<string>("Instructor")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<int>("MajorId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MajorId");
-
-                    b.ToTable("Courses");
-                });
 
             modelBuilder.Entity("EntityFrameworkProject.Models.Major", b =>
                 {
@@ -88,14 +65,6 @@ namespace EntityFrameworkProject.Migrations
                     b.HasIndex("MajorId");
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("EntityFrameworkProject.Models.Course", b =>
-                {
-                    b.HasOne("EntityFrameworkProject.Models.Major", "Major")
-                        .WithMany()
-                        .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EntityFrameworkProject.Models.Student", b =>
