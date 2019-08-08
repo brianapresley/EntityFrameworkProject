@@ -13,7 +13,7 @@ namespace EntityFrameworkProject.Models {
         [Required]
         [StringLength(50)]
         public string Instructor { get; set; }
-        public int Credits { get; set; }
+        public int Credits { get; set; } = 3;
         public int MajorId { get; set; }
         public virtual Major Major { get; set; }
 
