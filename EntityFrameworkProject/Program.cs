@@ -1,11 +1,28 @@
 ﻿using EntityFrameworkProject.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EntityFrameworkProject {
-    class Program {
-        static void Main(string[] args) {
+   public class Program {
 
+        public static Student GetStudentByLastname(string lastname) {
+            var db = new AppDbContext();
+            var students = db.Students.Where(s => s.Lastname.Equals(lastname)).ToArray(); //Whenever using a where clause, you will always return a collection of data
+            if (students.Count() == 0) {
+                return null;
+            } else {
+                return students[0];
+            }
+
+            
+        }
+        public static Student GetStudentById(int id) {
+            var db = new AppDbContext();
+            return db.Students.Find(id);
+        }
+        public static void Main(string[] args) { 
             var context = new AppDbContext();
 
             var TheaterMajor = context.Majors.SingleOrDefault(Th => Th.Description.Contains("Theater")); 
